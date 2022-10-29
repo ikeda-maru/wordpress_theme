@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html <?php language_attributes() ?>>
     <head>
         <?php get_header(); ?>
         <?php wp_head(); ?>
     </head>
-    <body>
+    <body <?php body_class() ?>>
+    <?php wp_body_open() ?>
         <!-- Navigation-->
         <?php get_template_part("includes/nav"); ?>
         <!-- Page Header-->
@@ -13,59 +14,36 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
-                            <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 24, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html"><h2 class="post-title">I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.</h2></a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on September 18, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Science has not yet mastered prophecy</h2>
-                            <h3 class="post-subtitle">We predict too much for the next year and yet far too little for the next ten.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on August 24, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">Failure is not an option</h2>
-                            <h3 class="post-subtitle">Many say exploration is part of our destiny, but it’s actually our duty to future generations.</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">Start Bootstrap</a>
-                            on July 8, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
+                    <?php if(have_posts()): ?>
+                        <?php while(have_posts()): ?>
+                            <?php the_post(); ?>
+                            <!-- Post preview-->
+                            <div class="post-preview">
+                                <a href="<?php the_permalink(); ?>">
+                                    <h2 class="post-title">
+                                    <?php
+                                    if (mb_strlen($title = get_the_title() ) > 25) {
+                                        $title = mb_substr($title, 0, 25);
+                                        echo $title . '...';
+                                    } else {
+                                        echo $title;
+                                    }
+                                    ?>
+                                    </h2>
+                                    <h3 class="post-subtitle"><?php the_excerpt(); ?></h3>
+                                </a>
+                                <p class="post-meta">
+                                Posted by
+                                <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>"><?php the_author(); ?></a>
+                                on <?php the_date(); ?>
+                                </p>
+                            </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p>Article not found.</p>
+                    <?php endif; ?>
                     <!-- Pager-->
                     <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
                 </div>

@@ -32,3 +32,15 @@ add_action('init', function() {
     'footerNav' => 'フッターナビゲーション',
   ]);
 });
+
+// 投稿タイプを定義
+add_action('init', function() {
+  register_post_type('music', [
+    'label'        => '音楽', // 管理画面のメニューに表示される名前
+    'supports'     => ['title', 'editor', 'thumbnail',  'page-attributes'], // 記事編集画面で入力できる項目を設定
+    'public'       => true, // trueでパブリック。falseで管理画面から消えるが、使用はできる。
+    'has_archive'  => true, // アーカイブを有効化
+    'hierarchical' => true, // ページ属性で親子関係の設定可能
+  ]);
+});
+

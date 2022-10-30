@@ -9,10 +9,15 @@
             <h1>Date</h1>
           <?php elseif(is_author()): ?>
             <h1>Author</h1>
+          <?php elseif(is_post_type_archive()): ?>
+            <?php $custumFlg = 1; ?>
+            <h1><?php wp_title(''); ?></h1>
           <?php else: ?>
             <h1>Tag</h1>
           <?php endif; ?>
-          <span class="subheading"><?php wp_title(''); ?></span>
+          <?php if($custumFlg != 1): ?>
+            <span class="subheading"><?php wp_title(''); ?></span>
+          <?php endif; ?>
         </div>
       </div>
     </div>

@@ -18,6 +18,7 @@
           <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="<?php echo esc_attr($menuItem->url); ?>"><?php echo esc_html($menuItem->title); ?></a></li>
         <?php endforeach; ?>
       </ul>
+      <?php get_search_form(); ?>
     </div>
   </div>
 </nav>

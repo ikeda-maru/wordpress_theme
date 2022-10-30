@@ -45,7 +45,23 @@
                         <p>Article not found.</p>
                     <?php endif; ?>
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                    <?php
+                    $linkElm = get_previous_posts_link('← 新しい投稿へ');
+                    if ($linkElm) {
+                        $linkElm = str_replace('<a', '<a class="btn btn-primary float-left"', $linkElm);
+                        echo '<div class="d-flex justify-content-between mb-4">';
+                        echo $linkElm;
+                    } else {
+                        echo '<div class="d-flex justify-content-end mb-4">';
+                    }
+
+                    $linkElm = get_next_posts_link('古い投稿へ →');
+                    if ($linkElm) {
+                        $linkElm = str_replace('<a', '<a class="btn btn-primary float-right"', $linkElm);
+                        echo $linkElm;
+                    }
+                    echo "</div>";
+                    ?>
                 </div>
             </div>
         </div>
